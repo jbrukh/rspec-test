@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Message, :type => :model do
 
-	@valid_attributes = {
-		:user_id => 1,
-		:recipient_id => 2,
-		:content => 'Hello, this is it.'
-	}
+	before(:each) do
+		@valid_attributes = {
+			:user_id => 1,
+			:recipient_id => 2,
+			:content => 'Hello, this is it.'
+		}
+	end
 
 	it "can be created with valid attributes" do
 		expect {
@@ -14,7 +16,10 @@ RSpec.describe Message, :type => :model do
 		}.to change(Message, :count).by(1)
 	end
 
-	it "has non-trivial content"
+	it "has non-trivial content" do
+		m = Message.new(@valid_attributes.except(:content))
+		expect(m).not_to be_valid
+	end
 
 	describe "Associations" do
 		it "belongs to a user" do 

@@ -6,6 +6,9 @@ class CreateMessages < ActiveRecord::Migration
       t.string :content
 
       t.timestamps
+
+      add_index :messages, :user_id
+      add_index :messages, :recipient_id
     end
   end
 end
