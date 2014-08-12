@@ -17,18 +17,21 @@ RSpec.describe Address, :type => :model do
   end
 
   it "must have a city" do
-  	a = Address.new(:state => 'NY', :zip => 11222)
+  	a = Address.new(@valid_attributes.except(:city))
   	expect(a).not_to be_valid
+  	expect(a.errors[:city]).not_to be_nil
   end
 
   it "must have a state" do
-  	a = Address.new(:city => 'New York', :zip => 11222)
+  	a = Address.new(@valid_attributes.except(:state))
   	expect(a).not_to be_valid
+  	expect(a.errors[:state]).not_to be_nil
   end
 
   it "must have a zip" do
-  	a = Address.new(:city => 'New York', :state => 'NY')
+  	a = Address.new(@valid_attributes.except(:zip))
   	expect(a).not_to be_valid
+  	expect(a.errors[:zip]).not_to be_nil
   end
 
 end
