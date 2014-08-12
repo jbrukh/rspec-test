@@ -2,36 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Address, :type => :model do
 
-  before(:each) do
-  	@valid_attributes = {
-  		:city => 'New York',
-  		:state => 'NY',
-  		:zip => 11222
-  	}
+  it "has a valid factory" do
+  	expect(build(:address)).to be_valid
+  end
+
+  it "is invalid without required attributes" do
+  	%w(city state zip).each do |attr|
+  		a = build(:address, attr => nil)
+  		expect(a).not_to be_valid
+  		expect(a.errors[attr]).not_to be_nil
+  	end
   end
 
   it "is created successfully when given valid attributes" do
   	expect {
-  		Address.create!(@valid_attributes)
+  		create(:address)
   	}.to change(Address, :count).by(1)
-  end
-
-  it "must have a city" do
-  	a = Address.new(@valid_attributes.except(:city))
-  	expect(a).not_to be_valid
-  	expect(a.errors[:city]).not_to be_nil
-  end
-
-  it "must have a state" do
-  	a = Address.new(@valid_attributes.except(:state))
-  	expect(a).not_to be_valid
-  	expect(a.errors[:state]).not_to be_nil
-  end
-
-  it "must have a zip" do
-  	a = Address.new(@valid_attributes.except(:zip))
-  	expect(a).not_to be_valid
-  	expect(a.errors[:zip]).not_to be_nil
   end
 
 end
