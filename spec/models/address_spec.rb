@@ -10,7 +10,7 @@ RSpec.describe Address, :type => :model do
   	}
   end
 
-  it "should be able to be created with valid attributes" do
+  it "is created successfully when given valid attributes" do
   	expect {
   		Address.create!(@valid_attributes)
   	}.to change(Address, :count).by(1)
