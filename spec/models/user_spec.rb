@@ -11,10 +11,11 @@ describe User, :type => :model do
 	end
 	
 	it "is invalid with duplicate name" do
+		create(:user)
+		expect(build(:user)).to have(1).errors_on(:name)
 	end
 
 	describe "name" do
-
 		it "is invalid when smaller than 3 characters" do
 			expect(build(:user, :name => 'aa')).to have(1).errors_on(:name)
 		end

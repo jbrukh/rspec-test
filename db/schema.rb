@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812155744) do
+ActiveRecord::Schema.define(version: 20140813172355) do
 
   create_table "addresses", force: true do |t|
     t.string   "city"
@@ -34,5 +34,7 @@ ActiveRecord::Schema.define(version: 20140812155744) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["name"], name: "index_users_on_name", unique: true
 
 end
