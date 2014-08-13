@@ -10,9 +10,16 @@ describe User, :type => :model do
 		expect(build(:user, :name => nil)).not_to be_valid
 	end
 	
-	it "is invalid with duplicate name" do
-		create(:user)
-		expect(build(:user)).to have(1).errors_on(:name)
+	describe "creation" do
+		it "succeeds with valid parameters" do
+			expect {
+				create(:user)
+			}.to change(User, :count).by(1)
+		end
+		it "is invalid with duplicate name" do
+			create(:user)
+			expect(build(:user)).to have(1).errors_on(:name)
+		end
 	end
 
 	describe "name" do
